@@ -5,23 +5,9 @@ import pandas as pd
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder
-from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.linear_model import LinearRegression
 
-class PrecipitationTransformer(BaseEstimator, TransformerMixin):
-    """
-    Custom transformer that makes a boolean value indicating whether annual
-    precipitation was "low". Mainly for example purposes rather than a
-    meaningful feature engineering step.
-    """
-    def fit(self, X, y):
-        return self
-
-    def transform(self, X, y=None):
-        X_new = X.copy()
-        X_new["low_precipitation"] = [int(x < 12)
-                                      for x in X_new["annual_precipitation"]]
-        return X_new
+from src.models.custom_transformers import PrecipitationTransformer
 
 # Load all data into X and y
 antelope_df = pd.read_csv("antelope.csv")
